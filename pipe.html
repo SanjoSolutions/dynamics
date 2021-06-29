@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Pipe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<script>
+  function a() {
+    console.log('a')
+  }
+
+  function b() {
+    console.log('b')
+  }
+
+  pipe(a, b)()
+
+  function pipe(...functions) {
+    return function (...args) {
+      return functions
+        .slice(1)
+        .reduce(
+          (result, fn) => fn(result),
+          functions[0](...args)
+        )
+    }
+  }
+</script>
+</body>
+</html>
